@@ -1,0 +1,3 @@
+module CGAL
+
+end # module
