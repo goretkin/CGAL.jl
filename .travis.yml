@@ -21,6 +21,7 @@ branches:
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get -y install libmpfr-dev; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get -y install libboost-dev libboost-system-dev libboost-program-options-dev libboost-thread-dev libboost-iostreams-dev fi
 
 ## uncomment the following lines to allow failures on nightly julia
 ## (tests will run but not make your overall status red)
