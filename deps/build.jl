@@ -6,7 +6,8 @@ if !ispath(cgal_base_dir)
     zipfile = download("https://github.com/CGAL/cgal/archive/master.zip", joinpath(download_dir, "master.zip"))
 
     cd(download_dir) do
-        run(`unzip $zipfile`)
+        quiet_flag = "-q"
+        run(`unzip $quiet_flag $zipfile`)
     end
 
     mv(joinpath(download_dir, "cgal-master"), cgal_base_dir)
