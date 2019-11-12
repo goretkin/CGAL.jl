@@ -7,10 +7,10 @@ cxx"""
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef K::Point_3      Point_3;
-typedef K::Vector_3     Vector_3;
-typedef K::Triangle_3   Triangle_3;
-
+typedef K::Point_3          Point_3;
+typedef K::Vector_3         Vector_3;
+typedef K::Triangle_3       Triangle_3;
+typedef K::Tetrahedron_3    Tetrahedron_3;
 """
 
 
@@ -40,7 +40,15 @@ end
     @test icxx"do_intersect($tri1, $tri2);" == false
     @test icxx"do_intersect($tri1, $tri3);" == true
 
-    @test @cxx CGAL::do_intersect(tri1, tri3) == true
+    @test (@cxx CGAL::do_intersect(tri1, tri3)) == true
 
     @test icxx"$tri1.squared_area();" == 4
+end
+
+@testset "Tetrahedron_3" begin
+    tet1 = icxx"Tetrahedron_3(Point_3(1,-1,0), Point_3(-1,-1,0), Point_3(0,1,0), Point_3(0,0,1));"
+    tri4 = icxx"Triangle_3(Point_3(1,-1,0.5), Point_3(-1,-1,0.5), Point_3(0,1,0.5));"
+    tri5 = icxx"Triangle_3(Point_3(1,-1,10.0), Point_3(-1,-1,10.0), Point_3(0,1,10.0));"
+    @test (@cxx CGAL::do_intersect(tet1, tri4)) == true
+    @test (@cxx CGAL::do_intersect(tet1, tri5)) == false
 end
